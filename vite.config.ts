@@ -10,5 +10,10 @@ export default defineConfig({
         alias: {
             '~': resolve(__dirname, './src')
         }
+    },
+    server:{
+        proxy:{
+            '/api': 'localhost:5000'
+        }
     }
 })
