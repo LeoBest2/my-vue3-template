@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import ElMessage from 'element-plus/lib/components/message/index.js'
 
 // 创建 axios 实例
 const service = axios.create({
@@ -14,17 +15,19 @@ service.interceptors.response.use(
         if (code === 0) {
             return response.data
         }
-        alert(msg || '系统出错')
+        ElMessage(msg || '系统出错')
         if (code === 401) {
+            ElMessage.warning('会话过期,请重新登陆!')
             window.location.href = '/'
         }
+        ElMessage.error(msg || 'Error')
         return Promise.reject(new Error(msg || 'Error'))
     },
     (error: any) => {
-        alert(error.message || '系统出错')
+        ElMessage.error(error.message || '系统出错')
         return Promise.reject(error.message)
     }
 )
 
 // 导出 axios 实例
-export default service
+export const request = service
