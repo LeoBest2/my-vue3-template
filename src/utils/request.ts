@@ -23,7 +23,7 @@ service.interceptors.response.use(
         ElMessage.error(msg || 'Error')
         return Promise.reject(new Error(msg || 'Error'))
     },
-    (error: any) => {
+    (error) => {
         ElMessage.error(error.message || '系统出错')
         return Promise.reject(error.message)
     }
